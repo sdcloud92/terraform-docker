@@ -23,6 +23,16 @@ resource "docker_container" "nodered_container" {
   image = docker_image.nodered_image.latest
   ports {
     internal = 1880
-    external = 1880
+    # external = 1880
+  }
+}
+
+# Start a container
+resource "docker_container" "nodered_container2" {
+  name  = "nodered2"
+  image = docker_image.nodered_image.latest
+  ports {
+    internal = 1880
+    # external = 1880
   }
 }
