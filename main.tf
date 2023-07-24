@@ -17,9 +17,21 @@ resource "docker_image" "nodered_image" {
   name = "nodered/node-red:latest"
 }
 
+resource "random_string" "random" {
+  length  = 4
+  special = false
+  upper   = false
+}
+
+resource "random_string" "random2" {
+  length  = 4
+  special = false
+  upper   = false
+}
+
 # Start a container
 resource "docker_container" "nodered_container" {
-  name  = "nodered"
+  name  = join("-", ["nodered", random_string.random.result])
   image = docker_image.nodered_image.latest
   ports {
     internal = 1880
@@ -29,7 +41,7 @@ resource "docker_container" "nodered_container" {
 
 # Start a container
 resource "docker_container" "nodered_container2" {
-  name  = "nodered2"
+  name  = join("-", ["nodered", random_string.random2.result])
   image = docker_image.nodered_image.latest
   ports {
     internal = 1880
